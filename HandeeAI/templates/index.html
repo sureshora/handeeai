@@ -1,173 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gemini AI Assistant</title>
-<style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-  background-color: #f9f9f9;
-}
-.container {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  margin: auto;
-}
-h1, h3 {
-  color: #333;
-}
-label {
-  font-weight: bold;
-  display: block;
-  margin-top: 10px;
-}
-select, textarea, button {
-  width: 100%;
-  margin-top: 10px;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-button {
-  background-color: #007BFF;
-  color: white;
-  cursor: pointer;
-}
-button:hover {
-  background-color: #0056b3;
-}
-#output {
-  margin-top: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  background: #f4f4f4;
-  border-radius: 4px;
-  white-space: pre-wrap;
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gemini AI Assistant</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+    .container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: auto;
+    }
+    h1, h3 {
+      color: #333;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+    select, textarea, button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #output {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background: #f4f4f4;
+      border-radius: 4px;
+      white-space: pre-wrap;
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-  <h1>Gemini AI Assistant</h1>
-  <label for="functionality">Choose Functionality:</label>
-  <select id="functionality">
-    <option value="summary">Summary</option>
-    <option value="translate">Translate</option>
-    <option value="write">Write</option>
-    <option value="rewrite">Rewrite</option>
-  </select>
-  <div id="languageOptions" style="display: none;">
-    <label for="language">Choose Language:</label>
-    <select id="language">
-      <option value="French">French</option>
-      <option value="Spanish">Spanish</option>
-      <option value="German">German</option>
-      <option value="English">English</option>
-      <option value="Italian">Italian</option>
+  <div class="container">
+    <h1>Gemini AI Assistant</h1>
+    <label for="functionality">Choose Functionality:</label>
+    <select id="functionality">
+      <option value="summary">Summary</option>
+      <option value="translate">Translate</option>
+      <option value="write">Write</option>
+      <option value="rewrite">Rewrite</option>
     </select>
+    <div id="languageOptions" style="display: none;">
+      <label for="language">Choose Language:</label>
+      <select id="language">
+        <option value="French">French</option>
+        <option value="Spanish">Spanish</option>
+        <option value="German">German</option>
+        <option value="English">English</option>
+        <option value="Italian">Italian</option>
+      </select>
+    </div>
+    <label for="inputText">Enter Text:</label>
+    <textarea id="inputText" placeholder="Enter your text here..." rows="5"></textarea>
+    <button id="submitButton">Run</button>
+    <h3>Output:</h3>
+    <div id="output">Output will appear here...</div>
   </div>
-  <label for="inputText">Enter Text:</label>
-  <textarea id="inputText" placeholder="Enter your text here..." rows="5"></textarea>
-  <button id="submitButton">Run</button>
-  <h3>Output:</h3>
-  <div id="output">Output will appear here...</div>
-</div>
 
-<script>
-const functionalitySelect = document.getElementById('functionality');
-const languageOptions = document.getElementById('languageOptions');
-const inputText = document.getElementById('inputText');
-const outputDiv = document.getElementById('output');
+  <script>
+    const functionalitySelect = document.getElementById('functionality');
+    const languageOptions = document.getElementById('languageOptions');
+    const inputText = document.getElementById('inputText');
+    const outputDiv = document.getElementById('output');
 
-functionalitySelect.addEventListener('change', () => {
-  languageOptions.style.display = functionalitySelect.value === 'translate' ? 'block' : 'none';
-});
-
-document.getElementById('submitButton').addEventListener('click', async () => {
-  const functionality = functionalitySelect.value;
-  const userInput = inputText.value.trim();
-  const language = document.getElementById('language')?.value;
-
-  if (!userInput) {
-    outputDiv.textContent = 'Please enter some text!';
-    return;
-  }
-
-  let prompt = userInput;
-  switch (functionality) {
-    case 'summary':
-      prompt = `Summarize the following text: ${userInput}`;
-      break;
-    case 'translate':
-      if (!language) {
-        outputDiv.textContent = 'Please select a language for translation!';
-        return;
-      }
-      prompt = `Translate the following text into ${language}: ${userInput}`;
-      break;
-    case 'write':
-      prompt = `Write a short paragraph about: ${userInput}`;
-      break;
-    case 'rewrite':
-      prompt = `Rewrite the following text for clarity: ${userInput}`;
-      break;
-    default:
-      outputDiv.textContent = 'Invalid functionality selected.';
-      return;
-  }
-
-  outputDiv.textContent = 'Processing...';
-
-  const API_KEY = 'your_api_key'; // REPLACE WITH YOUR ACTUAL API KEY
-  const BASE_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
-
-  const payload = {
-    contents: [
-      {
-        parts: [
-          { text: prompt }
-        ]
-      }
-    ]
-  };
-
-  try {
-    const response = await fetch(BASE_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
+    functionalitySelect.addEventListener('change', () => {
+      languageOptions.style.display = functionalitySelect.value === 'translate' ? 'block' : 'none';
     });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      outputDiv.textContent = `Error ${response.status}: ${errorText}`;
-      return;
-    }
+    document.getElementById('submitButton').addEventListener('click', async () => {
+      const functionality = functionalitySelect.value;
+      const userInput = inputText.value.trim();
+      const language = document.getElementById('language')?.value;
 
-    const data = await response.json();
-    if (
-      data.candidates &&
-      data.candidates.length > 0 &&
-      data.candidates[0].content &&
-      data.candidates[0].content.parts &&
-      data.candidates[0].content.parts.length > 0
-    ) {
-      outputDiv.textContent = data.candidates[0].content.parts[0].text;
-    } else {
-      outputDiv.textContent = 'No valid response from API.';
-    }
-  } catch (error) {
-    outputDiv.textContent = `Error: ${error.message}`;
-  }
-});
-</script>
+      if (!userInput) {
+        outputDiv.textContent = 'Please enter some text!';
+        return;
+      }
+
+      let prompt = userInput;
+      switch (functionality) {
+        case 'summary':
+          prompt = `Summarize the following text: ${userInput}`;
+          break;
+        case 'translate':
+          if (!language) {
+            outputDiv.textContent = 'Please select a language for translation!';
+            return;
+          }
+          prompt = `Translate the following text into ${language}: ${userInput}`;
+          break;
+        case 'write':
+          prompt = `Write a short paragraph about: ${userInput}`;
+          break;
+        case 'rewrite':
+          prompt = `Rewrite the following text for clarity: ${userInput}`;
+          break;
+        default:
+          outputDiv.textContent = 'Invalid functionality selected.';
+          return;
+      }
+
+      outputDiv.textContent = 'Processing...';
+
+      try {
+        const response = await fetch("/api", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ prompt: prompt }),
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          outputDiv.textContent = `Error ${response.status}: ${error.error || error.message}`;
+          return;
+        }
+
+        const data = await response.json();
+        outputDiv.textContent = data.result || "No response from backend.";
+      } catch (error) {
+        outputDiv.textContent = `Error: ${error.message}`;
+      }
+    });
+  </script>
 </body>
 </html>
+

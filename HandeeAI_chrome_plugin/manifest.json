@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Gemini AI Assistant",
+  "version": "1.0",
+  "description": "Interact with Gemini AI via Chrome extension for summary, translation, writing, and rewriting.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    },
+    "default_title": "Gemini AI Assistant : HandeeAI",
+    "default_area": {
+      "width": 700,
+      "height": 600
+    }
+  },
+  "permissions": ["contextMenus", "storage"],
+  "host_permissions": ["https://generativelanguage.googleapis.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

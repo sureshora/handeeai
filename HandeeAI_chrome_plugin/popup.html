@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gemini AI Assistant: HandeeAI</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    .title , .language-label, .entertxt, .functionality-label {
+      color :rgb(41, 40, 40);
+      font-weight: bold;
+    }
+    .container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 700px;
+      margin: auto;
+      position: relative;
+      min-height: 100px;
+      min-width: 200px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+
+    .button-container button {
+      margin-left: 5px;
+      padding: 5px 10px;
+      border: none;
+      cursor: pointer;
+      background-color: transparent;
+      color: #666;
+      font-size: 16px;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .button-container button:hover {
+        color: #333;
+        opacity: 0.8;
+    }
+
+
+    .resizer {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #aaa;
+      cursor: se-resize;
+      border-radius: 5px;
+    }
+
+    .top-left { top: 0; left: 0; cursor: nw-resize; }
+    .top-right { top: 0; right: 0; cursor: ne-resize; }
+    .bottom-left { bottom: 0; left: 0; cursor: sw-resize; }
+    .bottom-right { bottom: 0; right: 0; cursor: se-resize; }
+    .top { top: 0; left: 50%; transform: translateX(-50%); cursor: n-resize; height: 10px; width: 100%; }
+    .right { top: 50%; right: 0; transform: translateY(-50%); cursor: e-resize; width: 10px; height: 100%; }
+    .bottom { bottom: 0; left: 50%; transform: translateX(-50%); cursor: s-resize; height: 10px; width: 100%; }
+    .left { top: 50%; left: 0; transform: translateY(-50%); cursor: w-resize; width: 10px; height: 100%; }
+
+    h1, h3 {
+      color: rgb(38, 42, 38);
+      text-align: center;
+      margin-top: 0;
+    }
+
+    select, textarea, button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #output {
+      margin-top: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background: #f4f4f4;
+      border-radius: 4px;
+      white-space: pre-wrap;
+    }
+
+    #languageOptions {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="button-container">
+      <button id="maximizeBtn">[+]</button>
+      <button id="minimizeBtn">[-]</button>
+      <button id="closeButton">[×]</button>
+    </div>
+    <div class="resizer top-left"></div>
+    <div class="resizer top-right"></div>
+    <div class="resizer bottom-left"></div>
+    <div class="resizer bottom-right"></div>
+    <div class="resizer top"></div>
+    <div class="resizer right"></div>
+    <div class="resizer bottom"></div>
+    <div class="resizer left"></div>
+    <h1>Gemini AI Assistant</h1>
+
+    <label class="functionality-label" for="functionality">Choose Functionality:</label>
+    <select id="functionality">
+      <option value="summary">Summary</option>
+      <option value="translate">Translate</option>
+      <option value="write">Write</option>
+      <option value="rewrite">Rewrite</option>
+    </select>
+
+    <div id="languageOptions">
+      <label class="language-label" for="language">Choose Language:</label>
+      <select id="language">
+        <option value="French">French</option>
+        <option value="Spanish">Spanish</option>
+        <option value="German">German</option>
+        <option value="English">English</option>
+        <option value="Italian">Italian</option>
+        <option value="Japanese">Japanese</option>
+      </select>
+    </div>
+
+    <label class="entertxt" for="inputText">Enter Text:</label>
+    <textarea id="inputText" placeholder="Enter your text here..." rows="5"></textarea>
+
+    <button id="submitButton">Run</button>
+
+    <h3>Output:</h3>
+    <div id="output">Output will appear here...</div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

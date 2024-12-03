@@ -1,0 +1,5 @@
+handeeAI/
+├── app.py          # Flask application
+├── templates/      # HTML templates
+│   └── index.html  # Your HTML file (modified)
+├── .env            # Env
